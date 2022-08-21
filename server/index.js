@@ -6,7 +6,7 @@ const port = 8080;
 
 const articleRouter = require("./routes/article");
 const loginRouter = require("./routes/login");
-const mintRouter = require("./routes/mint");
+// const mintRouter = require("./routes/mint");
 const signUpRouter = require("./routes/signup");
 
 app.use(cors());
@@ -16,7 +16,7 @@ app.use(cookieParser());
 
 app.use("/article", articleRouter);
 app.use("/login", loginRouter);
-app.use("/mint", mintRouter);
+// app.use("/mint", mintRouter);
 app.use("/signup", signUpRouter);
 
 app.get("/", (req, res) => {

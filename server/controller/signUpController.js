@@ -11,7 +11,7 @@ module.exports = {
     const findAccount = `SELECT * FROM User WHERE user_id = "${user_id}"`;
     db.query(findAccount, (error, result) => {
       if (result[0]) {
-        res.status(409).send("Id exists");
+        res.status(409).json({ message: "Id exists" });
       } else {
         const user_address = web3.eth.accounts.create(user_password).address;
 

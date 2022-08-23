@@ -10,7 +10,7 @@ module.exports = {
         return res.status(500).send("Internal Server Error");
       } else {
         if (result[0]) {
-          console.log(result[0].user_id);
+          req.session.user_id = result[0].user_id;
           res.status(201).json({ message: "Login success!" });
         } else {
           res.status(403).send({ message: "not authorized" });

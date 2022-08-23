@@ -12,7 +12,13 @@ const userinfoRouter = require("./routes/userinfo");
 // const mintRouter = require("./routes/mint");
 const signUpRouter = require("./routes/signup");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+    methods: ["GET", "POST", "OPTIONS", "DELETE"],
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -24,6 +30,12 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+app.all("/*", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 
 app.use("/article", articleRouter);
 app.use("/login", loginRouter);

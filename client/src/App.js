@@ -1,34 +1,61 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-
-import MainPage from "./pages/MainPage";
-import MarketPage from "./pages/MarketPage";
-import MyPage from "./pages/MyPage";
-import WritePage from "./pages/WritePage";
-import DetailPage from "./pages/DetailPage";
-import NotFound from "./pages/NotFound";
-import SignupPage from "./pages/SignupPage";
-
-import Header from "./components/header/Header";
-import Footer from "./components/Footer";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./screens/Home";
+import NavBarElements from "./components/NavBar/NavBarElements";
+import Article from "./screens/Article";
+import NFT from "./screens/NFT";
+import Login from "./screens/Login";
+import Signup from "./screens/Signup";
+import Mypage from "./screens/Mypage";
+import PostArticle from "./screens/PostArticle";
+import MintNFT from "./screens/MintNFT";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import EditArticle from "./screens/EditArticle";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
+  const logOutHandler = () => {
+    axios
+      .post("http://localhost:8080/logout", null, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+        sessionStorage.removeItem("user_id");
+        setIsLogin(false);
+        window.location.href = "/";
+      });
+  };
+  const logInHandler = () => {
+    setIsLogin(true);
+  };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("user_id") === null) {
+      // sessionStorage에 user_id라는 key값으로 저장된 값이 없다면
+    } else {
+      // sessionStorage에 user_id라는 key값으로 저장된 값이 있다면
+      // 로그인 상태 변경
+      setIsLogin(true);
+    }
+  }, []);
+
   return (
-    <BrowserRouter>
-      <Header />
+    <Router>
+      <NavBarElements isLogin={isLogin} logOutHandler={logOutHandler} />
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/market" element={<MarketPage />} />
-        <Route path="/write" element={<WritePage />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route path="/detail" element={<DetailPage />} />
-        <Route path=":id" />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/Article" element={<Article />} />
+        <Route path="/NFT" element={<NFT />} />
+        <Route path="/Login" element={<Login logInHandler={logInHandler} />} />
+        <Route path="/Signup" element={<Signup />} />
+        <Route path="/Mypage" element={<Mypage />} />
+        <Route path="/Post" element={<PostArticle />} />
+        <Route path="/Mint" element={<MintNFT />} />
+        <Route path="/Edit" element={<EditArticle />} />
       </Routes>
-      <Footer />
-    </BrowserRouter>
+    </Router>
   );
 }
 

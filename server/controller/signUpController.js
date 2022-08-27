@@ -6,16 +6,17 @@ const web3 = new Web3(rpcURL);
 module.exports = {
   signUp: (req, res) => {
     const { user_id, user_password } = req.body;
-    console.log(req.body);
 
     const findAccount = `SELECT * FROM User WHERE user_id = "${user_id}"`;
     db.query(findAccount, (error, result) => {
       if (result[0]) {
         res.status(409).json({ message: "Id exists" });
       } else {
-        const user_address = web3.eth.accounts.create(user_password).address;
+        const createAddress = web3.eth.accounts.create(user_password);
+        const user_address = createAddress.address;
+        const user_privateKey = createAddress.privateKey;
 
-        const insertAccount = `INSERT INTO User (user_id, user_password, user_address, user_eth, user_token) VALUES ("${user_id}","${user_password}" , "${user_address}", "0", "0")`;
+        const insertAccount = `INSERT INTO User (user_id, user_password, user_address, user_privateKey, user_eth, user_token) VALUES ("${user_id}","${user_password}" , "${user_address}", "${user_privateKey}", "0", "0")`;
 
         db.query(insertAccount, (error, result) => {
           if (error) {

@@ -8,7 +8,6 @@ module.exports = {
           console.log(err);
         } else {
           res.status(200).send({ message: "ok" });
-          console.log(req.session);
         }
       });
     }

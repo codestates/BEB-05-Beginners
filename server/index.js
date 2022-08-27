@@ -11,6 +11,8 @@ const logoutRouter = require("./routes/logout");
 const userinfoRouter = require("./routes/userinfo");
 // const mintRouter = require("./routes/mint");
 const signUpRouter = require("./routes/signup");
+const transferRouter = require("./routes/transfer");
+const faucetRouter = require("./routes/faucet");
 
 app.use(
   cors({
@@ -43,6 +45,8 @@ app.use("/logout", logoutRouter);
 app.use("/userinfo", userinfoRouter);
 // app.use("/mint", mintRouter);
 app.use("/signup", signUpRouter);
+app.use("/transfer", transferRouter);
+app.use("/faucet", faucetRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send("Beginners");

@@ -2,6 +2,7 @@ CREATE TABLE User (
   user_id varchar(100),
   user_password varchar(100),
   user_address varchar(200),
+  user_privateKey varchar(200),
   user_eth varchar(100),
   user_token varchar(100),
   created_at datetime DEFAULT CURRENT_TIMESTAMP,

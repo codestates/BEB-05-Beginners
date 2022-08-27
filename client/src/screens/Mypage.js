@@ -15,7 +15,16 @@ const Mypage = () => {
 
   const onClickTransferToken = () => {};
 
-  const onClickEthFaucet = () => {};
+  const onClickEthFaucet = () => {
+    axios.post(
+      "http://localhost:8080/faucet",
+      {
+        user_id: myInfo.user_id,
+      },
+      { "content-type": "application/json", withCredentials: true }
+    );
+    window.location.href = "/mypage";
+  };
 
   const getUserInfo = async () => {
     const info = await axios.get("http://localhost:8080/userinfo", {

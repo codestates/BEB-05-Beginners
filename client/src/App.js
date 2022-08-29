@@ -17,7 +17,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const logOutHandler = () => {
     axios
-      .post("http://localhost:8080/logout", null, {
+      .post('http://localhost:8080/logout', null, {
         withCredentials: true,
       })
       .then((res) => {

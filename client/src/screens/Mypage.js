@@ -1,18 +1,22 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Container, Row, Col, InputGroup, Table, Form, Button } from "react-bootstrap";
 
 const Mypage = () => {
+  const URL = process.env.REACT_APP_URL;
   const [myInfo, setMyInfo] = useState({});
   const [transferAddress, sendTransferAddress] = useState("");
+  const [amount, setAmount] = useState("");
 
   const user_id = sessionStorage.getItem("user_id");
 
   const handleInputAddress = (e) => {
     sendTransferAddress(e.target.value);
   };
-
+  const handleInputAmount = (e) => {
+    setAmount(e.target.value);
+  }
   const onClickTransferToken = () => {};
 
   const onClickEthFaucet = () => {
@@ -37,36 +41,65 @@ const Mypage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Hello {myInfo.user_id}!</h1>
-      <p>Your address: {myInfo.user_address}</p>
-      <p>Your token: {myInfo.user_token}</p>
-      <p>Your eth: {myInfo.user_eth}</p>
-      <p>Date of Sign up: {myInfo.created_at}</p>
-      <br />
-      <br />
-
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Transfer Token</Form.Label>
-          <Form.Control
-            size="lg"
-            type="text"
-            placeholder="Enter Address"
-            onChange={handleInputAddress}
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit" onClick={onClickTransferToken}>
-          Transfer
-        </Button>
-      </Form>
-
-      <br />
-      <br />
-      <Button variant="primary" type="button" onClick={onClickEthFaucet}>
+    <>
+      <Container className="mt-3">
+        <Row>
+          <Col>
+            <h3 className="text-primary">Hello, {myInfo.user_id}!</h3>
+            <p style={{ color: "grey" }}>Overview</p>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Your address: </th>
+                  <td>{myInfo.user_address}</td>
+                </tr>
+                <tr>
+                  <th>Your token: </th>
+                  <td>{myInfo.user_token}</td>
+                </tr>
+                <tr>
+                  <th>Your eth: </th>
+                  <td>{myInfo.user_eth}</td>
+                </tr>
+              </thead>
+              
+            </Table>
+          </Col>
+        </Row>
+        <Button
+          variant="primary"
+          type="button"
+          onClick={onClickEthFaucet}>
         ETH Faucet
-      </Button>
-    </div>
+        </Button>
+          <>
+            <InputGroup className="mt-3">
+              <InputGroup.Text
+                style={{ color: "#545b8c", textDecoration: "bold" }}>
+                ☄️Transfer Token</InputGroup.Text>
+            <Form.Control
+                size="md"
+                type="number"
+                placeholder="Token Amount"
+                onChange={handleInputAmount} />
+            <Form.Control
+                size="md"
+                type="text"
+                placeholder="Recipient's address"
+              onChange={handleInputAddress} />
+              <Button className="p-2" size="md" variant="primary" onClick={onClickTransferToken}>
+                Transfer
+              </Button>
+            </InputGroup>
+            </>
+        
+      </Container>
+        
+
+
+      
+      
+    </>
   );
 };
 

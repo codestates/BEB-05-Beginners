@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
 
@@ -25,37 +25,45 @@ const PostArticle = () => {
         post_content: inputContent,
       },
       { "content-type": "application/json", withCredentials: true }
-    );
+    )
   };
 
   return (
-    <div>
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Title</Form.Label>
-          <Form.Control
-            size="lg"
-            type="text"
-            placeholder="Enter Title"
-            onChange={handleInputTitle}
-          />
-        </Form.Group>
+    <>
+      <Container className="mt-3">
+        <Row>
+          <Col>
+            <Form className="mt-3">
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label className="p-2">Title</Form.Label>
+                <Form.Control
+                  className="shadow-lg"
+                  size="lg"
+                  type="text"
+                  placeholder="Enter Title"
+                  onChange={handleInputTitle}
+                />
+              </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Content</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={10}
-            placeholder="Enter Content"
-            onChange={handleInputContent}
-          />
-        </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Content</Form.Label>
+                <Form.Control
+                  className="shadow-lg"
+                  as="textarea"
+                  rows={10}
+                  placeholder="Enter Content"
+                  onChange={handleInputContent}
+                />
+              </Form.Group>
 
-        <Button variant="primary" type="submit" onClick={onClickPostArticle}>
-          Post
-        </Button>
-      </Form>
-    </div>
+              <Button className="shadow-lg"variant="primary" onClick={onClickPostArticle}>
+              Post article
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container> 
+    </>
   );
 };
 

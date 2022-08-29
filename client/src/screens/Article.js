@@ -54,25 +54,25 @@ const Article = () => {
   }, []);
 
   return (
-    <Container>
+    <Container  className="mt-3">
       <Button onClick={postArticle}>Post Article</Button>
-      <Row>
+      <Row className="mt-3">
         {articles.map((article) => {
           return (
-            <Col sm="4" key={article.id}>
-              <Card style={{ width: "18rem" }}>
+            <Col sm={4} key={article.id}>
+              <Card className="mt-3 shadow-lg" style={{ width: "18rem" }}>
                 <Card.Body>
                   <Card.Title>{article.post_title}</Card.Title>
-                  <Card.Text>{article.post_content}</Card.Text>
+                  <Card.Text className="mb-2">{article.post_content}</Card.Text>
                 </Card.Body>
                 <ListGroup className="list-group-flush">
-                  <ListGroup.Item>{article.user_id}</ListGroup.Item>
+                  <ListGroup.Item style={{backgroundColor: "#f7f7f7"}}>by {article.user_id}</ListGroup.Item>
                   <ListGroup.Item>{article.created_at}</ListGroup.Item>
                 </ListGroup>
                 <Card.Body>
                   <Button
                     variant="primary"
-                    type="submit"
+                    className="m-1"
                     onClick={(e) => {
                       editPost(
                         article.user_id,
@@ -86,6 +86,7 @@ const Article = () => {
                   </Button>
                   <Button
                     variant="danger"
+                    className="m-1"
                     type="submit"
                     onClick={(e) => {
                       deletePost(article.user_id, article.post_title, e);

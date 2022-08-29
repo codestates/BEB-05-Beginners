@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import { Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 const EditArticle = () => {
   const location = useLocation();
@@ -30,8 +30,11 @@ const EditArticle = () => {
   };
 
   return (
-    <div>
-      <Form>
+    <>
+      <Container className="mt-3">
+        <Row>
+          <Col>
+          <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Title</Form.Label>
           <Form.Control size="lg" type="text" value={post_title} disabled />
@@ -51,7 +54,11 @@ const EditArticle = () => {
           Edit
         </Button>
       </Form>
-    </div>
+          </Col>
+        </Row>
+      </Container>
+      
+    </>
   );
 };
 

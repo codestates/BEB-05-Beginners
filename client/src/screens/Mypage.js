@@ -1,7 +1,15 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Container, Row, Col, InputGroup, Table, Form, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  InputGroup,
+  Table,
+  Form,
+  Button,
+} from "react-bootstrap";
 
 const Mypage = () => {
   const URL = process.env.REACT_APP_URL;
@@ -16,8 +24,19 @@ const Mypage = () => {
   };
   const handleInputAmount = (e) => {
     setAmount(e.target.value);
-  }
-  const onClickTransferToken = () => {};
+  };
+  const onClickTransferToken = () => {
+    axios.post(
+      "http://localhost:8080/transfer",
+      {
+        user_id: myInfo.user_id,
+        toAddress: transferAddress,
+        tokenAmount: amount,
+      },
+      { "content-type": "application/json", withCredentials: true }
+    );
+    window.location.href = "/mypage";
+  };
 
   const onClickEthFaucet = () => {
     axios.post(
@@ -62,43 +81,42 @@ const Mypage = () => {
                   <td>{myInfo.user_eth}</td>
                 </tr>
               </thead>
-              
             </Table>
           </Col>
         </Row>
-        <Button
-          variant="primary"
-          type="button"
-          onClick={onClickEthFaucet}>
-        ETH Faucet
+        <Button variant="primary" type="button" onClick={onClickEthFaucet}>
+          ETH Faucet
         </Button>
-          <>
-            <InputGroup className="mt-3">
-              <InputGroup.Text
-                style={{ color: "#545b8c", textDecoration: "bold" }}>
-                ☄️Transfer Token</InputGroup.Text>
+        <>
+          <InputGroup className="mt-3">
+            <InputGroup.Text
+              style={{ color: "#545b8c", textDecoration: "bold" }}
+            >
+              ☄️Transfer Token
+            </InputGroup.Text>
             <Form.Control
-                size="md"
-                type="number"
-                placeholder="Token Amount"
-                onChange={handleInputAmount} />
+              size="md"
+              type="number"
+              placeholder="Token Amount"
+              onChange={handleInputAmount}
+            />
             <Form.Control
-                size="md"
-                type="text"
-                placeholder="Recipient's address"
-              onChange={handleInputAddress} />
-              <Button className="p-2" size="md" variant="primary" onClick={onClickTransferToken}>
-                Transfer
-              </Button>
-            </InputGroup>
-            </>
-        
+              size="md"
+              type="text"
+              placeholder="Recipient's address"
+              onChange={handleInputAddress}
+            />
+            <Button
+              className="p-2"
+              size="md"
+              variant="primary"
+              onClick={onClickTransferToken}
+            >
+              Transfer
+            </Button>
+          </InputGroup>
+        </>
       </Container>
-        
-
-
-      
-      
     </>
   );
 };

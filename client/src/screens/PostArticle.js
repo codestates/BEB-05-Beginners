@@ -25,7 +25,7 @@ const PostArticle = () => {
         post_content: inputContent,
       },
       { "content-type": "application/json", withCredentials: true }
-    )
+    );
   };
 
   return (
@@ -56,13 +56,18 @@ const PostArticle = () => {
                 />
               </Form.Group>
 
-              <Button className="shadow-lg"variant="primary" onClick={onClickPostArticle}>
-              Post article
+              <Button
+                className="shadow-lg"
+                variant="primary"
+                type="submit"
+                onClick={onClickPostArticle}
+              >
+                Post article
               </Button>
             </Form>
           </Col>
         </Row>
-      </Container> 
+      </Container>
     </>
   );
 };
